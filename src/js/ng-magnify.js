@@ -11,10 +11,10 @@
       replace: true,
       template: '<div class="magnify-container" data-ng-style="getContainerStyle()">' +
                   '<div class="magnify-glass" data-ng-style="getGlassStyle()"></div>' +
-                  '<img class="magnify-image" data-ng-src="{{ imageSrc }}"/>' +
+                  '<img class="magnify-image" data-ng-src="{{ src }}"/>' +
                 '</div>',
       scope: {
-        imageSrc: '@',
+        src: '=ngSrc',
         imageWidth: '=',
         imageHeight: '=',
         glassWidth: '=',
@@ -24,6 +24,10 @@
         var glass = element.find('div'),
           image = element.find('img'),
           el, nWidth, nHeight, magnifyCSS;
+
+        if(!scope.src) {
+          return;
+        }
 
         // if touch devices, do something
         if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
@@ -62,7 +66,7 @@
               nWidth = img.width;
               nHeight = img.height;
             };
-            img.src = scope.imageSrc;
+            img.src = scope.src;
           } else {
             // IE8 uses evt.x and evt.y
             mx = (evt.pageX) ? (evt.pageX - el.left) : evt.x;
@@ -90,9 +94,8 @@
             px = mx - el.glassWidth/2;
             py = my - el.glassHeight/2;
 
-            return { left: px+'px', top: py+'px', backgroundPosition: bgp };
+            return { left: px + 'px', top: py + 'px', backgroundPosition: bgp };
           }
-          return;
         };
 
         scope.getOffset = function (_el) {
@@ -112,7 +115,9 @@
 
         scope.getGlassStyle = function () {
           return {
-            background: 'url("' + scope.imageSrc + '") no-repeat',
+            background: 'url("' + scope.src + '") no-repeat',
+            // backgroundSize: scope.imageWidth + 'px ' + scope.imageHeight + 'px',
+            // transform: 'scale(' + 2.5 + ')',
             width: (scope.glassWidth) ? scope.glassWidth + 'px' : '',
             height: (scope.glassHeight) ? scope.glassHeight + 'px' : ''
           };

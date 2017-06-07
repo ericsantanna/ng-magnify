@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DEMO: ng-magnify</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/ng-magnify.css"/>
+  <link rel="stylesheet" href="../src/css/ng-magnify.css"/>
   <style>
   body {
     position: relative;
@@ -37,44 +37,44 @@
       </div>
     </div>
   </header>
-  <div class="container">
+  <div class="container" data-ng-controller="ExampleCtrl">
     <div class="row">
       <div class="col-md-12">Examples</div>
     </div>
 
     <div class="row">
       <div class="col-md-3">
-        <div data-ng-controller="ExampleCtrl">
-          <div id="example1" data-ng-magnify
-            data-image-width="200"
-            data-image-height="300"
-            data-glass-width="400"
-            data-glass-height="400"
-            data-image-src="img/nexus5.jpg"
-          ></div>
+        <div id="example1" data-ng-magnify
+          data-image-width="200"
+          data-image-height="300"
+          data-glass-width="400"
+          data-glass-height="400"
+          data-image-src="img/nexus5.jpg">
         </div>
       </div>
       <div class="col-md-3">
-        <div id="example2" data-ng-magnify image-src="img/nexus5.jpg"></div>
+        <div id="example2" ng-magnify ng-src="{{jpg}}" image-width="200" data-image-height="300"></div>
       </div>
       <div class="col-md-3">
-        <div id="example3" data-ng-magnify image-src="img/nexus5.jpg"></div>
+        <img id="example3" data-ng-magnify ng-src="img/nexus5.jpg" glass-width="300" glass-height="200" />
       </div>
       <div class="col-md-3">
-        <div id="example4" data-ng-magnify image-src="img/nexus5.jpg"></div>
+        <ng-magnify id="example4" ng-src="img/nexus5.jpg" />
+      </div>
+      <div class="col-md-12">
+        <img id="example5" data-ng-magnify ng-src="img/galaxy.jpg" />
       </div>
     </div>
 
   <!--
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
   -->
-  <script src="angular/angular.min.js"></script>
-  <script src="js/ng-magnify.js"></script>
-  <script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+  <script src="../src/js/ng-magnify.js"></script><script>
   var app = angular.module('demoapp', ['ngMagnify']);
 
   app.controller('ExampleCtrl', ['$scope', function ($scope) {
-
+    $scope.jpg = 'img/nexus5.jpg';
   }]);
   </script>
 </body>
